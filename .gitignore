@@ -1,0 +1,10 @@
+*.iml
+*.log
+.DS_Store
+target/
+*.log*
+.idea/*
+**/.idea/*
+*/target/*
+*/**/target/*
+*.git*
