@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.user.core.dao.UserDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.yc.user.core.entity.UserEntity">
+        <id column="id" property="id" />
+        <result column="regist_platfrom" property="registPlatfrom" />
+        <result column="regist_device" property="registDevice" />
+        <result column="name_pinyin" property="namePinyin" />
+        <result column="name" property="name" />
+        <result column="nickname" property="nickname" />
+        <result column="sex" property="sex" />
+        <result column="phone" property="phone" />
+        <result column="headimg" property="headimg" />
+        <result column="invite_code" property="inviteCode" />
+        <result column="invite_user_id" property="inviteUserId" />
+        <result column="invite_status" property="inviteStatus" />
+        <result column="password_hash" property="passwordHash" />
+        <result column="appstore_id" property="appstoreId" />
+        <result column="email" property="email" />
+        <result column="wx_id" property="wxId" />
+        <result column="wx_mini_open_id" property="wxMiniOpenId" />
+        <result column="wx_open_id" property="wxOpenId" />
+        <result column="wx_union_id" property="wxUnionId" />
+        <result column="wx_gzh_open_id" property="wxGzhOpenId" />
+        <result column="is_auth" property="isAuth" />
+        <result column="is_disable" property="isDisable" />
+        <result column="disable_reason" property="disableReason" />
+        <result column="is_del" property="isDel" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="block_chain_id" property="blockChainId" />
+        <result column="block_chain_private_key" property="blockChainPrivateKey" />
+        <result column="block_chain_public_key" property="blockChainPublicKey" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, regist_platfrom, regist_device, name_pinyin, name, nickname, sex, phone, headimg, invite_code, invite_user_id, invite_status, password_hash, appstore_id, email, wx_id, wx_mini_open_id, wx_open_id, wx_union_id, wx_gzh_open_id, is_auth, is_disable, disable_reason, is_del, created_at, updated_at, block_chain_id, block_chain_private_key, block_chain_public_key
+    </sql>
+
+    <update id="updateHeadimgById">
+		update user set headimg = #{headimg} where id = #{id}
+	</update>
+
+    <update id="updateNicknameById">
+		update user set nickname = #{nickname} where id = #{id}
+	</update>
+
+    <update id="updateSexById">
+		update user set sex = #{sex} where id = #{id}
+	</update>
+</mapper>
