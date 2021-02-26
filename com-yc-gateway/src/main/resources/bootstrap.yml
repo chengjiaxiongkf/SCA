@@ -22,29 +22,28 @@ spring:
             refresh: true
     sentinel:
       transport:
+        #127.0.0.1:8858 服务器环境问题
         dashboard: 10.66.66.214:8858 # sentinel dashboard/console 地址
         port: 8719   #  sentinel会在该端口启动http server，那么这样的话，控制台定义的一些限流等规则才能发送传递过来，
         #如果8719端口被占用，那么会依次+1
       # Sentinel Nacos数据源配置，Nacos中的规则会自动同步到sentinel流控规则中
       datasource:
         # 自定义的流控规则数据源名称
-        flow:
+        ds:
           nacos:
             server-addr: ${spring.cloud.nacos.discovery.server-addr}
             namespace: ${spring.cloud.nacos.discovery.namespace}
-            data-id: ${spring.application.name}-flow-rules
+            data-id: ${spring.application.name}-flow-rules.json
             groupId: ${server.env}
             data-type: json
             rule-type: flow  # 类型来自RuleType类
         # 自定义的降级规则数据源名称
-        degrade:
-          nacos:
-            server-addr: ${spring.cloud.nacos.discovery.server-addr}
-            namespace: ${spring.cloud.nacos.discovery.namespace}
-            data-id: ${spring.application.name}-degrade-rules
-            groupId: ${server.env}
-            data-type: json
-            rule-type: degrade  # 类型来自RuleType类
+#            - server-addr: ${spring.cloud.nacos.discovery.server-addr}
+#              namespace: ${spring.cloud.nacos.discovery.namespace}
+#              data-id: ${spring.application.name}-degrade-rules.json
+#              groupId: ${server.env}
+#              data-type: json
+#              rule-type: degrade  # 类型来自RuleType类
 #  main:
 #    allow-bean-definition-overriding: true
 #    zipkin:

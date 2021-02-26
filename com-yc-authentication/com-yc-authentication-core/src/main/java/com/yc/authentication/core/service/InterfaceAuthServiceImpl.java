@@ -34,7 +34,7 @@ public class InterfaceAuthServiceImpl implements AuthenticationService {
                 return ResultUtil.failed(ResultCodeEnum.FORBIDDEN);
             }
         }catch(AuthException e){
-            log.error("authentication error:",e);
+            log.warn("authentication error:",e.getMessage());
             return ResultUtil.failed(ResultCodeEnum.FORBIDDEN);
         }
         return ResultUtil.success(ResultCodeEnum.SUCCESS);
