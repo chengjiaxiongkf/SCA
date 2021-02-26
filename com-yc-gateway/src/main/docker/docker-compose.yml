@@ -1,0 +1,29 @@
+version: '3'
+services:
+  gateway9999:
+    image: com-yc-gateway:latest
+    container_name: com-yc-gateway9999
+    restart: always
+
+    networks:
+      - yc-net
+    ports:
+      - 9999:9999
+    environment:
+      - JVM=-Xms256m -Xmx256m -Xmn100m -Xss256k
+      - PORT=9999
+#  gateway9998:
+#    image: com-yc-gateway:latest
+#    container_name: com-yc-gateway9998
+#    restart: always
+#    networks:
+#      - yc-net
+#    ports:
+#      - 9998:9998
+#    environment:
+#      - JVM: -Xms256m -Xmx256m -Xmn100m -Xss256k
+#      - PORT: 9998
+networks:
+  yc-net:
+    external:
+      name: yc-net

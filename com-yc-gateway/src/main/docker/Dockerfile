@@ -1,5 +1,5 @@
 FROM java:8
-ADD com-yc-gateway.jar com-yc-gateway.jar
+VOLUME /tmp
+ADD com-yc-gateway.jar /
 MAINTAINER chengjiaxiong
-ENV JAVA_OPTS=""
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS /com-yc-gateway.jar" ]
+ENTRYPOINT java ${PORT:=-Dserver.port=9999} ${JVM:=-Xms256m -Xmx256m -Xmn100m -Xss256k} -jar com-yc-gateway.jar
