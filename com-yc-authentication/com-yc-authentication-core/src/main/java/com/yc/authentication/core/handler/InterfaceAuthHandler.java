@@ -3,8 +3,8 @@ package com.yc.authentication.core.handler;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import com.yc.authentication.api.dto.AuthenticationDTO;
-import com.yc.authentication.api.exception.AuthException;
-import com.yc.authentication.api.exception.AuthExceptionCodeEnum;
+import com.yc.common.base.exception.AuthException;
+import com.yc.common.base.enums.AuthExceptionCodeEnum;
 import com.yc.authentication.core.config.AuthRefreshProperties;
 import com.yc.authentication.core.util.AuthUtils;
 import com.yc.common.config.redis.util.RedisUtil;
@@ -119,45 +119,39 @@ public class InterfaceAuthHandler extends AbstractAuthHandler {
         String shopNo;
         Integer organizeId;
         Integer platform;
-        try {
-            if (!redisUtil.hasKey(token)) {
-                throw new AuthException(AuthExceptionCodeEnum.TOKEN_IS_EXIST);
-            }
-            String tokenValue = redisUtil.get(token).toString();
-            redisUtil.set(token, tokenValue, RedisUtil.HOURS); //更新redis中token的过期时间
-            if(StringUtils.isEmpty(tokenValue)){
-                throw new AuthException(AuthExceptionCodeEnum.TOKEN_IS_NULL);
-            }
-            if (!"1".equals(tokenValue)){
-                return com.alibaba.fastjson.JSONObject.parseObject(tokenValue,UserAuthInfoDTO.class);
-            }
-            JSONObject jsonObject;
-            jsonObject = TokenUtil.verifyToken(token, authenticationRefreshProperties.getTokenAuthConfigSecret());
-            if (jsonObject == null) {
-                throw new AuthException(AuthExceptionCodeEnum.TOKEN_INVALID);
-            }
-            userId = jsonObject.getLong("user_id");
-            if (userId == null || userId == 0) {  //错误的token
-                throw new AuthException(AuthExceptionCodeEnum.TOKEN_INVALID);
-            }
-            shopNo = jsonObject.getStr("shop_no");
-            organizeId = jsonObject.getInt("organize_id");
-            platform = jsonObject.getInt("platform");
-            //数据封装
-            userAuthInfoDTO = new UserAuthInfoDTO();
-            userAuthInfoDTO.setUserId(userId);
-            userAuthInfoDTO.setShopNo(shopNo);
-            userAuthInfoDTO.setOrganizeId(organizeId);
-            userAuthInfoDTO.setPlatform(platform);
-            try{
-                this.setShopNo(userAuthInfoDTO);
-            }catch (Exception e){       //不影响授权
-                log.error("setShopNo error:",e);
-            }
-        } catch (AuthException e) { // 错误的token
-            log.error("token [" + token + "] parse error: " + e.getMessage());
-            redisUtil.del(token); //删除无效token
-            throw new AuthException(AuthExceptionCodeEnum.TOKEN_INVALID);
+        if (!redisUtil.hasKey(token)) {
+            throw new AuthException(AuthExceptionCodeEnum.AU003);
+        }
+        String tokenValue = redisUtil.get(token).toString();
+        redisUtil.set(token, tokenValue, RedisUtil.HOURS); //更新redis中token的过期时间
+        if(StringUtils.isEmpty(tokenValue)){
+            throw new AuthException(AuthExceptionCodeEnum.AU001);
+        }
+        if (!"1".equals(tokenValue)){
+            return com.alibaba.fastjson.JSONObject.parseObject(tokenValue,UserAuthInfoDTO.class);
+        }
+        JSONObject jsonObject;
+        jsonObject = TokenUtil.verifyToken(token, authenticationRefreshProperties.getTokenAuthConfigSecret());
+        if (jsonObject == null) {
+            throw new AuthException(AuthExceptionCodeEnum.AU001);
+        }
+        userId = jsonObject.getLong("user_id");
+        if (userId == null || userId == 0) {  //错误的token
+            throw new AuthException(AuthExceptionCodeEnum.AU001);
+        }
+        shopNo = jsonObject.getStr("shop_no");
+        organizeId = jsonObject.getInt("organize_id");
+        platform = jsonObject.getInt("platform");
+        //数据封装
+        userAuthInfoDTO = new UserAuthInfoDTO();
+        userAuthInfoDTO.setUserId(userId);
+        userAuthInfoDTO.setShopNo(shopNo);
+        userAuthInfoDTO.setOrganizeId(organizeId);
+        userAuthInfoDTO.setPlatform(platform);
+        try{
+            this.setShopNo(userAuthInfoDTO);
+        }catch (Exception e){ //封装ShopNo不影响授权
+            log.error("setShopNo error:",e);
         }
         return userAuthInfoDTO;
     }

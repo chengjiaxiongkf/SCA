@@ -1,4 +1,5 @@
 package com.yc.user.api.service;
+import com.yc.common.base.exception.UserException;
 
 import java.util.List;
 
@@ -8,5 +9,5 @@ import java.util.List;
  * @Date: Created in 14:37 2021/2/23
  */
 public interface NodeService {
-    List<String> getAllNode();
+    List<String> getAllNode() throws UserException;
 }

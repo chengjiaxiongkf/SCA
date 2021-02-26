@@ -3,7 +3,7 @@ package com.yc.authentication.core.controller;
 import com.yc.authentication.api.dto.LoginDTO;
 import com.yc.common.base.dto.Result;
 import com.yc.common.base.dto.ResultCodeEnum;
-import com.yc.common.base.util.ResultUtil;
+import com.yc.common.base.dto.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,7 @@
 package com.yc.mall.core.controller;
 
 import com.yc.common.base.dto.Result;
-import com.yc.common.base.util.ResultUtil;
+import com.yc.common.base.dto.ResultUtil;
 import com.yc.mall.api.dto.MallShopDTO;
 import com.yc.mall.api.service.MallShopService;
 import com.yc.mall.core.converter.MallShopConverter;

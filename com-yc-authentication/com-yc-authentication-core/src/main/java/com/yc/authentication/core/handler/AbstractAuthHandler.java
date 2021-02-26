@@ -1,7 +1,7 @@
 package com.yc.authentication.core.handler;
 
 import com.yc.authentication.api.dto.AuthenticationDTO;
-import com.yc.authentication.api.exception.AuthException;
+import com.yc.common.base.exception.AuthException;
 import lombok.Getter;
 
 /**

@@ -1,9 +1,9 @@
 package com.yc.user.core.service;
 
+import com.yc.common.base.exception.UserException;
 import com.yc.user.api.service.NodeService;
 import com.yc.user.core.dao.NodeDao;
 import org.apache.dubbo.config.annotation.DubboService;
-
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class NodeServiceImpl implements NodeService {
     private NodeDao nodeDao;
 
     @Override
-    public List<String> getAllNode() {
+    public List<String> getAllNode() throws UserException {
         return nodeDao.getAllNode();
     }
 }

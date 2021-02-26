@@ -1,11 +1,12 @@
 package com.yc.gateway.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.yc.authentication.api.dto.AuthenticationDTO;
 import com.yc.authentication.api.service.AuthenticationService;
 import com.yc.common.base.dto.Result;
 import com.yc.common.base.dto.ResultCodeEnum;
-import com.yc.common.base.util.ResultUtil;
+import com.yc.common.base.dto.ResultUtil;
 import com.yc.common.config.redis.util.RedisUtil;
 import com.yc.gateway.config.GatewayRefreshProperties;
 import com.yc.gateway.factory.NoAccessFilterHandlerFactory;
@@ -101,7 +102,7 @@ public class GlobalBasicFilter implements GlobalFilter {
         authenticationDTO.setMethod(method);
         Result result = authenticationService.authentication(authenticationDTO);
         if(!ResultUtil.isSuccess(result)){
-            log.info("authentication fail");
+            log.info("authentication fail:"+ JSONObject.toJSONString(result));
             FilterUtils.out(response,ResultUtil.failed(ResultCodeEnum.UNAUTHORIZED));
             response.setStatusCode(HttpStatus.UNAUTHORIZED);  //未登录或已过期
             return exchange.getResponse().setComplete();

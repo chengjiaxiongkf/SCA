@@ -3,6 +3,7 @@ package com.yc.user.core.service;
 import com.yc.user.api.dto.UserAuthInfoDTO;
 import com.yc.user.api.dto.UserNodeDTO;
 import com.yc.user.api.dto.UserRoleDTO;
+import com.yc.common.base.exception.UserException;
 import com.yc.user.api.service.UserAuthService;
 import com.yc.user.api.service.UserNodeService;
 import com.yc.user.api.service.UserRoleService;
@@ -26,7 +27,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     private UserAuthInfoConverter userAuthInfoConverter;
 
     @Override
-    public UserAuthInfoDTO getUserAuthority(UserAuthInfoDTO userAuthInfoDTO) {
+    public UserAuthInfoDTO getUserAuthority(UserAuthInfoDTO userAuthInfoDTO) throws UserException {
         UserRoleDTO userRoleDTO = userAuthInfoConverter.converUserRoleDTO(userAuthInfoDTO);
         UserNodeDTO userNodeDTO = userAuthInfoConverter.converUserNodeDTO(userAuthInfoDTO);
         userAuthInfoDTO.setAdmin(userRoleService.selectOne(userRoleDTO)!=null);  //用户是否是超级管理员

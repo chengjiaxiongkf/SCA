@@ -1,4 +1,4 @@
-package com.yc.authentication.api.exception;
+package com.yc.common.base.enums;
 
 import lombok.Getter;
 
@@ -10,10 +10,10 @@ import lombok.Getter;
 @Getter
 public enum AuthExceptionCodeEnum {
     //异常码定义
-    TOKEN_INVALID("AU001","无效的TOKEN"),
-    AUTHENTICATION_PARAM_IS_NULL("AU002","授权参数为空"),
-    TOKEN_IS_NULL("AU003","TOKEN为空"),
-    TOKEN_IS_EXIST("AU004","TOKEN不存在"),
+    AU001("AU001","无效的TOKEN"),
+    AU002("AU002","授权参数为空"),
+    AU003("AU003","TOKEN为空"),
+    AU004("AU004","TOKEN不存在"),
     ;
     private final String code;
     private final String msg;

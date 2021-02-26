@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yc.user.api.dto.UserAuthInfoDTO;
 import com.yc.user.core.entity.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -14,6 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2020-10-13
  */
 @Mapper
+@Repository
 public interface UserDao extends BaseMapper<UserEntity> {
     int updateHeadimgById(UserEntity user);
     int updateNicknameById(UserEntity user);

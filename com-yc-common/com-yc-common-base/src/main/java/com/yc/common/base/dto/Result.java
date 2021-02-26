@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class Result<T> implements Serializable {
-    private long code;
+    private String code;
     private String msg;
     private T data;
     private long time;
@@ -20,7 +20,7 @@ public class Result<T> implements Serializable {
     protected Result() {
     }
 
-    public Result(long code, String msg, T data,long time) {
+    public Result(String code, String msg, T data,long time) {
         this.code = code;
         this.msg = msg;
         this.data = data;

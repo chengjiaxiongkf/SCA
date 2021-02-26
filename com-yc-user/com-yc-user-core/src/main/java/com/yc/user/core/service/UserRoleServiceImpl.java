@@ -2,12 +2,12 @@ package com.yc.user.core.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.yc.user.api.dto.UserRoleDTO;
+import com.yc.common.base.exception.UserException;
 import com.yc.user.api.service.UserRoleService;
 import com.yc.user.core.converter.UserRoleConverter;
 import com.yc.user.core.dao.UserRoleDao;
 import com.yc.user.core.entity.UserRoleEntity;
 import org.apache.dubbo.config.annotation.DubboService;
-
 import javax.annotation.Resource;
 
 /**
@@ -23,7 +23,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     private UserRoleConverter userRoleConverter;
 
     @Override
-    public UserRoleDTO selectOne(UserRoleDTO userRoleDTO) {
+    public UserRoleDTO selectOne(UserRoleDTO userRoleDTO) throws UserException {
         //先判断是否超管
         LambdaQueryWrapper<UserRoleEntity> queryWrapper = new LambdaQueryWrapper<UserRoleEntity>()
                 .eq(UserRoleEntity::getUserId, userRoleDTO.getUserId())

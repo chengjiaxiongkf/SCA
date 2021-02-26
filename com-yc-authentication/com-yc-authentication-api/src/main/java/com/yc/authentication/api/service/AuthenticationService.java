@@ -2,7 +2,7 @@ package com.yc.authentication.api.service;
 
 import com.yc.common.base.dto.Result;
 import com.yc.authentication.api.dto.AuthenticationDTO;
-import com.yc.authentication.api.exception.AuthException;
+import com.yc.common.base.exception.AuthException;
 
 /**
  * @Author: ChengJiaXiong

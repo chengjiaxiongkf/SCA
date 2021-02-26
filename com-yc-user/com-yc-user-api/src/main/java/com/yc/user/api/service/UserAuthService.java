@@ -1,6 +1,7 @@
 package com.yc.user.api.service;
 
 import com.yc.user.api.dto.UserAuthInfoDTO;
+import com.yc.common.base.exception.UserException;
 
 /**
  * @Author: ChengJiaXiong
@@ -8,5 +9,5 @@ import com.yc.user.api.dto.UserAuthInfoDTO;
  * @Date: Created in 15:40 2021/2/23
  */
 public interface UserAuthService {
-    UserAuthInfoDTO getUserAuthority(UserAuthInfoDTO userAuthInfoDTO);
+    UserAuthInfoDTO getUserAuthority(UserAuthInfoDTO userAuthInfoDTO) throws UserException;
 }

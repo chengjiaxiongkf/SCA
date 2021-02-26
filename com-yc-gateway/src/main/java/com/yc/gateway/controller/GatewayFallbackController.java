@@ -1,7 +1,7 @@
 package com.yc.gateway.controller;
 
 import com.yc.common.base.dto.Result;
-import com.yc.common.base.util.ResultUtil;
+import com.yc.common.base.dto.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;

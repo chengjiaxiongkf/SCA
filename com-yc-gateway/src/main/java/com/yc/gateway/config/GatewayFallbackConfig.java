@@ -2,7 +2,7 @@ package com.yc.gateway.config;
 
 import com.alibaba.csp.sentinel.adapter.spring.webflux.callback.BlockRequestHandler;
 import com.yc.common.base.dto.ResultCodeEnum;
-import com.yc.common.base.util.ResultUtil;
+import com.yc.common.base.dto.ResultUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ServerWebExchange;
