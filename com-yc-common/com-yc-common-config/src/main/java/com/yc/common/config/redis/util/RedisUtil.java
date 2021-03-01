@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -565,6 +566,23 @@ public class RedisUtil {
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    /**
+     * @Author: ChengJiaXiong
+     * @Description:   事务set,高并发下事务隔离
+     * @Date: Created in 17:10 2021/3/1
+     */
+    public void multiSet(String key, Object value, long time ){
+        while(true){  //CAS到修改成功
+            redisTemplate.watch(key);//监听key，如果事务中key修改则退出事务
+            redisTemplate.multi();
+            this.set(key,value,time);
+            List<Object> list = redisTemplate.exec();
+            if(!CollectionUtils.isEmpty(list) && (boolean)list.get(0)){
+                break;
+            }
         }
     }
 }

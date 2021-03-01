@@ -120,12 +120,12 @@ public class InterfaceAuthHandler extends AbstractAuthHandler {
         if (!redisUtil.hasKey(token)) {
             throw new AuthException(AuthExceptionCodeEnum.TOKEN_NO_EXIST);
         }
+        redisUtil.expire(token, RedisUtil.HOURS); //更新redis中token的过期时间
         String tokenValue = redisUtil.get(token).toString();
-        redisUtil.set(token, tokenValue, RedisUtil.HOURS); //更新redis中token的过期时间
         if(StringUtils.isEmpty(tokenValue)){
             throw new AuthException(AuthExceptionCodeEnum.TOKEN_VALID);
         }
-        if (!"1".equals(tokenValue)){
+        if (!"1".equals(tokenValue)){//已经被解析过了
             return com.alibaba.fastjson.JSONObject.parseObject(tokenValue,UserAuthInfoDTO.class);
         }
         JSONObject jsonObject;
