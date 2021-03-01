@@ -12,7 +12,7 @@
         <module>com-yc-common</module>
         <module>com-yc-user</module>
         <module>com-yc-gateway</module>
-        <module>com-yc-authentication</module>
+        <module>com-yc-auth</module>
         <module>com-yc-mall</module>
     </modules>
 

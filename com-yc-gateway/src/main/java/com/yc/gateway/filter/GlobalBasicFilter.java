@@ -2,8 +2,8 @@ package com.yc.gateway.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.yc.authentication.api.dto.AuthenticationDTO;
-import com.yc.authentication.api.service.AuthenticationService;
+import com.yc.auth.api.dto.AuthDTO;
+import com.yc.auth.api.service.AuthService;
 import com.yc.common.base.dto.Result;
 import com.yc.common.base.dto.ResultCodeEnum;
 import com.yc.common.base.dto.ResultUtil;
@@ -60,7 +60,7 @@ public class GlobalBasicFilter implements GlobalFilter {
     private RedisUtil redisUtil;
 
     @DubboReference(group = "interfaceAuthentication")
-    private AuthenticationService authenticationService;
+    private AuthService authenticationService;
 
     @DubboReference
     private NodeService nodeService;
@@ -95,7 +95,7 @@ public class GlobalBasicFilter implements GlobalFilter {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);  //未登录或已过期
             return exchange.getResponse().setComplete();
         }
-        AuthenticationDTO authenticationDTO = new AuthenticationDTO();
+        AuthDTO authenticationDTO = new AuthDTO();
         authenticationDTO.setUrl(url);
         authenticationDTO.setToken(token);
         authenticationDTO.setMenuId(Long.parseLong(menuId));

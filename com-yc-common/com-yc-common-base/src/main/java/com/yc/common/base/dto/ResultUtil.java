@@ -14,6 +14,13 @@ public class ResultUtil {
 
     /**
      * 成功返回结果
+     */
+    public static <T> Result<T> success() {
+        return new Result<>(ResultCodeEnum.SUCCESS.getCode(), ResultCodeEnum.SUCCESS.getMessage(), null,getTime());
+    }
+
+    /**
+     * 成功返回结果
      *
      * @param data 获取的数据
      */

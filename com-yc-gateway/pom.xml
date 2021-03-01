@@ -19,8 +19,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.yc.authentication</groupId>
-            <artifactId>com-yc-authentication-api</artifactId>
+            <groupId>com.yc.auth</groupId>
+            <artifactId>com-yc-auth-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
