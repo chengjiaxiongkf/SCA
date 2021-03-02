@@ -1,0 +1,34 @@
+server:
+  port: 5555
+  env: test
+  #  servlet:
+  #    context-path: /com-yc-sms
+spring:
+  application:
+    name: com-yc-sms
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.66.66.214:8848
+        namespace: 5a1c2e28-229b-4378-a7a0-e8d95fffb54a
+        group: test
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        extension-configs:
+          - data-id: ${spring.application.name}.yml
+            group: ${server.env}
+            refresh: true
+          - data-id: global-config.xml
+            group: ${server.env}
+            refresh: true
+dubbo:
+  cloud:
+    subscribed-services: com-yc-sms
+  scan:
+    base-packages: com.yc.sms.core.service
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}
