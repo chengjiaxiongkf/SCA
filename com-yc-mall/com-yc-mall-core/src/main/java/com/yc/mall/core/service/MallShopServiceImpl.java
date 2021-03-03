@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.yc.mall.api.dto.MallShopDTO;
 import com.yc.mall.api.service.MallShopService;
 import com.yc.mall.core.converter.MallShopConverter;
-import com.yc.mall.core.dao.MallShopDao;
+import com.yc.mall.core.mapper.MallShopMapper;
 import com.yc.mall.core.entity.MallShopEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
@@ -24,7 +24,7 @@ import javax.annotation.Resource;
 public class MallShopServiceImpl implements MallShopService {
 
     @Resource
-    private MallShopDao mallShopDao;
+    private MallShopMapper mallShopDao;
 
     @Autowired
     private MallShopConverter mallShopConverter;

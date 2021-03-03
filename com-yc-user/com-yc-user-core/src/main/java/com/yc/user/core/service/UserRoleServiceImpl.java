@@ -5,8 +5,8 @@ import com.yc.user.api.dto.UserRoleDTO;
 import com.yc.common.base.exception.UserException;
 import com.yc.user.api.service.UserRoleService;
 import com.yc.user.core.converter.UserRoleConverter;
-import com.yc.user.core.dao.UserRoleDao;
 import com.yc.user.core.entity.UserRoleEntity;
+import com.yc.user.core.mapper.UserRoleMapper;
 import org.apache.dubbo.config.annotation.DubboService;
 import javax.annotation.Resource;
 
@@ -18,7 +18,7 @@ import javax.annotation.Resource;
 @DubboService
 public class UserRoleServiceImpl implements UserRoleService {
     @Resource
-    private UserRoleDao userRoleDao;
+    private UserRoleMapper userRoleMapper;
     @Resource
     private UserRoleConverter userRoleConverter;
 
@@ -31,6 +31,6 @@ public class UserRoleServiceImpl implements UserRoleService {
                 .eq(UserRoleEntity::getPlatform,userRoleDTO.getPlatform())
                 .eq(UserRoleEntity::getStatus,0)
                 .eq(UserRoleEntity::getRoleId,0);
-        return userRoleConverter.converUserRoleDTO(userRoleDao.selectOne(queryWrapper));
+        return userRoleConverter.converUserRoleDTO(userRoleMapper.selectOne(queryWrapper));
     }
 }

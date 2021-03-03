@@ -1,4 +1,4 @@
-package com.yc.mall.vo;
+package com.yc.mall.core.vo;
 
 import lombok.Getter;
 import lombok.Setter;

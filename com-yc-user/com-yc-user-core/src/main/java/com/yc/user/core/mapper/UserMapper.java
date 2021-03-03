@@ -1,4 +1,4 @@
-package com.yc.user.core.dao;
+package com.yc.user.core.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yc.user.api.dto.UserAuthInfoDTO;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface UserDao extends BaseMapper<UserEntity> {
+public interface UserMapper extends BaseMapper<UserEntity> {
     int updateHeadimgById(UserEntity user);
     int updateNicknameById(UserEntity user);
     int updateSexById(UserEntity user);

@@ -1,8 +1,9 @@
-package com.yc.user.core.dao;
+package com.yc.user.core.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yc.user.core.entity.NodeEntity;
 import org.apache.ibatis.annotations.Mapper;
+
 import java.util.List;
 
 /**
@@ -14,6 +15,6 @@ import java.util.List;
  * @since 2020-11-01
  */
 @Mapper
-public interface NodeDao extends BaseMapper<NodeEntity> {
+public interface NodeMapper extends BaseMapper<NodeEntity> {
     List<String> getAllNode();
 }

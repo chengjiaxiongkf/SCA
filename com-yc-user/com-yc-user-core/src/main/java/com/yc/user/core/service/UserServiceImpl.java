@@ -9,8 +9,9 @@ import com.yc.common.base.exception.UserException;
 import com.yc.user.api.service.UserService;
 import com.yc.user.api.dto.UserDTO;
 import com.yc.user.core.converter.UserConverter;
-import com.yc.user.core.dao.UserDao;
+import com.yc.user.core.dao.UserDaoImpl;
 import com.yc.user.core.entity.UserEntity;
+import com.yc.user.core.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,38 +29,40 @@ import java.util.List;
 @Repository
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserDao userDao;
+    private UserDaoImpl userDao;
+    @Autowired
+    private UserMapper userMapper;
     @Autowired
     private UserConverter userConverter;
 
     @Override
     public boolean insert(UserDTO userDTO) throws UserException {
         UserEntity userEntity = userConverter.converUserEntity(userDTO);
-        return userDao.insert(userEntity)>0;
+        return userMapper.insert(userEntity)>0;
     }
 
     @Override
     public boolean updateById(UserDTO userDTO) throws UserException {
         UserEntity userEntity = userConverter.converUserEntity(userDTO);
-        return userDao.updateById(userEntity)>0;
+        return userMapper.updateById(userEntity)>0;
     }
 
     @Override
     public boolean updateHeadimgById(UserDTO userDTO) throws UserException {
         UserEntity userEntity = userConverter.converUserEntity(userDTO);
-        return userDao.updateHeadimgById(userEntity)>0;
+        return userMapper.updateHeadimgById(userEntity)>0;
     }
 
     @Override
     public boolean updateNicknameById(UserDTO userDTO) throws UserException {
         UserEntity userEntity = userConverter.converUserEntity(userDTO);
-        return userDao.updateNicknameById(userEntity)>0;
+        return userMapper.updateNicknameById(userEntity)>0;
     }
 
     @Override
-    @DynamicDataSource
     public UserDTO getById(Long id) throws UserException {
         UserEntity userEntity = userDao.selectById(id);
+        userEntity = userMapper.selectById(id);
         log.info("userVO:"+JSONObject.toJSONString(userEntity));
         return userConverter.converUserDTO(userEntity);
     }
@@ -67,7 +70,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<UserDTO> page(Page page, UserDTO userDTO) throws UserException {
         UserEntity userEntity = userConverter.converUserEntity(userDTO);
-        Page<UserEntity> userPage = (Page) userDao.selectPage(page, QueryUtil.buildWrapper(userEntity, false));
+        Page<UserEntity> userPage = (Page) userMapper.selectPage(page, QueryUtil.buildWrapper(userEntity, false));
         log.info("asd:"+JSONObject.toJSONString(userPage));
         return userConverter.converUserDTOPage(userPage);
     }
@@ -75,17 +78,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> list(UserDTO userDTO) throws UserException {
         UserEntity userEntity = userConverter.converUserEntity(userDTO);
-        List<UserEntity> userEntityList = userDao.selectList(QueryUtil.buildWrapper(userEntity, false));
+        List<UserEntity> userEntityList = userMapper.selectList(QueryUtil.buildWrapper(userEntity, false));
         return userConverter.converUserDTOList(userEntityList);
     }
 
     @Override
     public boolean removeById(Long id) throws UserException {
-        return userDao.deleteById(id)>0;
+        return userMapper.deleteById(id)>0;
     }
 
     @Override
     public boolean deleteByIds(String ids) throws UserException {
-        return userDao.deleteBatchIds(CollUtil.toList(ids))>0;
+        return userMapper.deleteBatchIds(CollUtil.toList(ids))>0;
     }
 }

@@ -2,7 +2,7 @@ package com.yc.mall.core.converter;
 
 import com.yc.mall.api.dto.MallShopDTO;
 import com.yc.mall.core.entity.MallShopEntity;
-import com.yc.mall.vo.MallShopVO;
+import com.yc.mall.core.vo.MallShopVO;
 import org.mapstruct.Mapper;
 
 /**
