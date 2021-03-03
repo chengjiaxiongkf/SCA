@@ -95,15 +95,6 @@ public class UserController {
         return ResultUtil.success(userConverter.converUserVO(userService.getById(id)));
     }
 
-    //查询根据ID
-    @GetMapping(value = "selects/{id}")
-    public Result<UserVO> getByIds(@PathVariable Long id)  {
-        //测试数据
-        UserThreadLocal.set(new User());
-        UserThreadLocal.get().setDataSource("test");
-        return ResultUtil.success(userConverter.converUserVO(userService.getById(id)));
-    }
-
     //查询分页
     @GetMapping(value = "select/page")
     public Result<Page<UserVO>> selectPage(Page page, UserDTO userDTO)  {
