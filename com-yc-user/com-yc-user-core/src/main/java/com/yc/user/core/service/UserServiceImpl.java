@@ -3,6 +3,7 @@ package com.yc.user.core.service;
 import cn.hutool.core.collection.CollUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.yc.common.config.datasource.aspect.DynamicDataSource;
 import com.yc.common.util.QueryUtil;
 import com.yc.common.base.exception.UserException;
 import com.yc.user.api.service.UserService;
@@ -56,6 +57,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @DynamicDataSource
     public UserDTO getById(Long id) throws UserException {
         UserEntity userEntity = userDao.selectById(id);
         log.info("userVO:"+JSONObject.toJSONString(userEntity));

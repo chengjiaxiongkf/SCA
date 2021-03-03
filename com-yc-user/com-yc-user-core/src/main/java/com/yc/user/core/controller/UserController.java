@@ -1,18 +1,27 @@
 package com.yc.user.core.controller;
 
+import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.yc.common.base.data.User;
+import com.yc.common.base.data.UserThreadLocal;
 import com.yc.common.base.dto.Result;
 import com.yc.common.base.enums.UserExceptionCodeEnum;
 import com.yc.common.base.exception.UserException;
 import com.yc.common.base.dto.ResultUtil;
+import com.yc.common.config.datasource.DynamicDataSourceProperties;
+import com.yc.common.config.datasource.data.DynamicDataSource;
 import com.yc.user.api.dto.UserDTO;
 import com.yc.user.api.service.UserService;
 import com.yc.user.core.converter.UserConverter;
 import com.yc.user.core.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author: ChengJiaXiong
@@ -27,6 +36,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private UserConverter userConverter;
+    @Autowired
+    private DynamicDataSourceProperties dynamicDataSourceProperties;
 
     //新增
     @PostMapping(value = "insert")
@@ -78,7 +89,19 @@ public class UserController {
     //查询根据ID
     @GetMapping(value = "select/{id}")
     public Result<UserVO> getById(@PathVariable Long id)  {
-        return ResultUtil.success(userConverter.converUserVO(userService.getById(id)),"查询成功");
+        //测试数据
+        UserThreadLocal.set(new User());
+        UserThreadLocal.get().setDataSource("dev");
+        return ResultUtil.success(userConverter.converUserVO(userService.getById(id)));
+    }
+
+    //查询根据ID
+    @GetMapping(value = "selects/{id}")
+    public Result<UserVO> getByIds(@PathVariable Long id)  {
+        //测试数据
+        UserThreadLocal.set(new User());
+        UserThreadLocal.get().setDataSource("test");
+        return ResultUtil.success(userConverter.converUserVO(userService.getById(id)));
     }
 
     //查询分页

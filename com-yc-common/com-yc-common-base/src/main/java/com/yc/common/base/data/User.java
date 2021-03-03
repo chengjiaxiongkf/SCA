@@ -19,4 +19,5 @@ public class User implements Serializable {
     private int platform;//客户端
     private int organizeId;//组织
     private boolean isAdmin; //是否是超管
+    private String dataSource;//数据源
 }
