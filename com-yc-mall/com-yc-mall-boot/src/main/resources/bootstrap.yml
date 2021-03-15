@@ -7,6 +7,11 @@ spring:
   application:
     name: com-yc-mall
   cloud:
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: 127.0.0.1:8858
+#        dashboard: 10.66.66.214:8858
     nacos:
       discovery:
         server-addr: 10.66.66.214:8848

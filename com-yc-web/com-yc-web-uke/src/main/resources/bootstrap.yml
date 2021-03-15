@@ -8,6 +8,11 @@ spring:
     name: com-yc-web-uke
   cloud:
     nacos:
+      sentinel:
+        transport:
+          port: 8719
+          dashboard: 127.0.0.1:8858
+#          dashboard: 10.66.66.214:8858
       discovery:
         server-addr: 10.66.66.214:8848
         namespace: 5a1c2e28-229b-4378-a7a0-e8d95fffb54a
