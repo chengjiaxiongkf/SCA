@@ -14,7 +14,8 @@
     <modules>
         <module>com-yc-web-uke</module>
         <module>com-yc-web-youchuan</module>
-<!--        <module>com-yc-web-sso</module>-->
+        <module>com-yc-web-miniprogram</module>
+        <module>com-yc-web-sso</module>
     </modules>
 
     <properties>

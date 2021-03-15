@@ -11,14 +11,17 @@
     <modules>
         <module>com-yc-common</module>
         <module>com-yc-user</module>
-<!--        <module>com-yc-gateway</module>-->
         <module>com-yc-auth</module>
         <module>com-yc-mall</module>
         <module>com-yc-sms</module>
         <module>com-yc-web</module>
+        <module>com-yc-organize</module>
     </modules>
 
     <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.5.RELEASE</spring-cloud-alibaba.version>
@@ -51,20 +54,6 @@
         </dependencies>
     </dependencyManagement>
 
-    <build>
-        <plugins>
-            <!--编译插件-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                    <encoding>utf-8</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
     <!--定义环境变量-->
     <profiles>
         <!--dev环境-->

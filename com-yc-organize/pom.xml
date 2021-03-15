@@ -8,16 +8,16 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.yc.user</groupId>
-    <artifactId>com-yc-user</artifactId>
-    <name>com-yc-user</name>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.yc.organize</groupId>
+    <name>com-yc-organize</name>
+    <artifactId>com-yc-organize</artifactId>
     <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
 
     <modules>
-        <module>com-yc-user-facade</module>
-        <module>com-yc-user-core</module>
-        <module>com-yc-user-boot</module>
+        <module>com-yc-organize-boot</module>
+        <module>com-yc-organize-core</module>
+        <module>com-yc-organize-facade</module>
     </modules>
 
     <properties>

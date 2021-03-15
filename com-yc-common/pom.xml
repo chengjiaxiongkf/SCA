@@ -22,6 +22,7 @@
         <module>com-yc-common-redis</module>
         <module>com-yc-common-kafka</module>
         <module>com-yc-common-es</module>
+        <module>com-yc-common-code</module>
     </modules>
 
     <properties>
