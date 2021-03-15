@@ -19,7 +19,7 @@ import java.util.List;
  */
 @DubboService
 @Slf4j
-public class UserProviderImpl implements UserFacade {
+public class UserFacadeImpl implements UserFacade {
     @Resource
     private UserService userService;
     @Resource

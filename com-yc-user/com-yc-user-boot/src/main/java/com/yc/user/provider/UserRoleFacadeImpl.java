@@ -13,7 +13,7 @@ import javax.annotation.Resource;
  * @Date: Created in 15:25 2021/2/23
  */
 @DubboService
-public class UserRoleProviderImpl implements UserRoleFacade {
+public class UserRoleFacadeImpl implements UserRoleFacade {
     @Resource
     private UserRoleService userRoleService;
 

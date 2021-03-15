@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @DubboService
 @Slf4j
-public class MallShopProviderImpl implements MallShopFacade {
+public class MallShopFacadeImpl implements MallShopFacade {
     @Autowired
     private MallShopService mallShopService;
 

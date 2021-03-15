@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 @Slf4j
 @DubboService
 @Repository //防止注入报错
-public class InterfaceAuthProviderImpl implements AuthFacade {
+public class AuthFacadeImpl implements AuthFacade {
     @Autowired
     private InterfaceAuthService interfaceAuthService;
 

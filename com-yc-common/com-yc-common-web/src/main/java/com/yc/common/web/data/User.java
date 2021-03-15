@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @Author: ChengJiaXiong
- * @Description: 用户VO
+ * @Description: 用户登录信息
  * @Date: Created in 15:56 2021/2/7
  */
 @Getter

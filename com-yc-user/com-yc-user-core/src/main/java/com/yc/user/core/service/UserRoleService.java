@@ -2,7 +2,7 @@ package com.yc.user.core.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.yc.user.core.converter.UserRoleConverter;
-import com.yc.user.core.entity.UserRoleEntity;
+import com.yc.user.core.entity.UserRole;
 import com.yc.user.core.mapper.UserRoleMapper;
 import com.yc.user.facade.dto.UserRoleDTO;
 import com.yc.user.facade.exception.UserException;
@@ -23,12 +23,12 @@ public class UserRoleService {
 
     public UserRoleDTO selectOne(UserRoleDTO userRoleDTO) throws UserException {
         //先判断是否超管
-        LambdaQueryWrapper<UserRoleEntity> queryWrapper = new LambdaQueryWrapper<UserRoleEntity>()
-                .eq(UserRoleEntity::getUserId, userRoleDTO.getUserId())
-                .eq(UserRoleEntity::getOrganizeId,userRoleDTO.getOrganizeId())
-                .eq(UserRoleEntity::getPlatform,userRoleDTO.getPlatform())
-                .eq(UserRoleEntity::getStatus,0)
-                .eq(UserRoleEntity::getRoleId,0);
+        LambdaQueryWrapper<UserRole> queryWrapper = new LambdaQueryWrapper<UserRole>()
+                .eq(UserRole::getUserId, userRoleDTO.getUserId())
+                .eq(UserRole::getOrganizeId,userRoleDTO.getOrganizeId())
+                .eq(UserRole::getPlatform,userRoleDTO.getPlatform())
+                .eq(UserRole::getStatus,0)
+                .eq(UserRole::getRoleId,0);
         return userRoleConverter.converUserRoleDTO(userRoleMapper.selectOne(queryWrapper));
     }
 }

@@ -1,6 +1,6 @@
 package com.yc.user.core.converter;
 
-import com.yc.user.core.entity.UserRoleEntity;
+import com.yc.user.core.entity.UserRole;
 import com.yc.user.facade.dto.UserRoleDTO;
 import org.mapstruct.Mapper;
 
@@ -11,5 +11,5 @@ import org.mapstruct.Mapper;
  */
 @Mapper(componentModel="spring")
 public interface UserRoleConverter {
-    UserRoleDTO converUserRoleDTO(UserRoleEntity userRoleEntity);
+    UserRoleDTO converUserRoleDTO(UserRole userRoleEntity);
 }

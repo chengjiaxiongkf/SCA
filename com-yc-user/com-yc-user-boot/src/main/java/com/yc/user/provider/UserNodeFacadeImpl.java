@@ -15,7 +15,7 @@ import java.util.List;
  * @Date: Created in 15:47 2021/2/23
  */
 @DubboService
-public class UserNodeProviderImpl implements UserNodeFacade {
+public class UserNodeFacadeImpl implements UserNodeFacade {
     @Resource
     private UserNodeService userNodeService;
     @Resource

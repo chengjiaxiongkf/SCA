@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  * @Date: Created in 15:40 2021/2/23
  */
 @DubboService
-public class UserAuthProviderImpl implements UserAuthFacade {
+public class UserAuthFacadeImpl implements UserAuthFacade {
     @Autowired
     private UserNodeService userNodeService;
     @Autowired

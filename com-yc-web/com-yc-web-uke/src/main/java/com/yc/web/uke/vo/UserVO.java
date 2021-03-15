@@ -1,5 +1,7 @@
 package com.yc.web.uke.vo;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.yc.common.base.dto.PageCondition;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class UserVO extends PageCondition {
     private Long id;
 

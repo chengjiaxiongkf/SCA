@@ -16,7 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @TableName("mall_shop")
-public class MallShopEntity {
+public class MallShop {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     private Integer organizeId;//企业id

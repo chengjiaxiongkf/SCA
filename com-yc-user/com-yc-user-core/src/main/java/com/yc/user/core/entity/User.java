@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @TableName("user")
-public class UserEntity implements Serializable {
+public class User implements Serializable {
     //后台用户id
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;

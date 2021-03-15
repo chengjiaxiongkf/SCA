@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @TableName("node")
-public class NodeEntity implements Serializable {
+public class Node implements Serializable {
     //权限节点id
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;

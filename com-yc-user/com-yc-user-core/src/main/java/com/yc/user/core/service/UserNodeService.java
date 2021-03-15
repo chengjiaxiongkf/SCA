@@ -1,7 +1,7 @@
 package com.yc.user.core.service;
 
 import com.yc.user.core.converter.UserNodeConverter;
-import com.yc.user.core.entity.UserNodeEntity;
+import com.yc.user.core.entity.UserNode;
 import com.yc.user.core.mapper.UserNodeMapper;
 import com.yc.user.facade.dto.UserNodeDTO;
 import com.yc.user.facade.exception.UserException;
@@ -22,7 +22,7 @@ public class UserNodeService {
     private UserNodeConverter userNodeConverter;
 
     public List<UserNodeDTO> selectUserNode(UserNodeDTO userNodeDTO) throws UserException {
-        UserNodeEntity userNodeEntity = userNodeConverter.converUserNodeEntity(userNodeDTO);
+        UserNode userNodeEntity = userNodeConverter.converUserNodeEntity(userNodeDTO);
         return userNodeConverter.converUserNodeDTOList(userNodeMapper.selectUserNode(userNodeEntity));
     }
 }

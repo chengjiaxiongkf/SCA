@@ -1,6 +1,6 @@
 package com.yc.mall.core.converter;
 
-import com.yc.mall.core.entity.MallShopEntity;
+import com.yc.mall.core.entity.MallShop;
 import com.yc.mall.facade.dto.MallShopDTO;
 import org.mapstruct.Mapper;
 
@@ -11,5 +11,5 @@ import org.mapstruct.Mapper;
  */
 @Mapper(componentModel="spring")
 public interface MallShopConverter {
-    MallShopDTO converMallShopDTO(MallShopEntity mallShopEntity);
+    MallShopDTO converMallShopDTO(MallShop mallShop);
 }

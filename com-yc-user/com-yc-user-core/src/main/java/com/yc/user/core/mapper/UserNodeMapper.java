@@ -1,6 +1,6 @@
 package com.yc.user.core.mapper;
 
-import com.yc.user.core.entity.UserNodeEntity;
+import com.yc.user.core.entity.UserNode;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,5 +12,5 @@ import java.util.List;
  */
 @Mapper
 public interface UserNodeMapper {
-    List<UserNodeEntity> selectUserNode(UserNodeEntity userNodeEntity);
+    List<UserNode> selectUserNode(UserNode userNodeEntity);
 }

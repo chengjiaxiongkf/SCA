@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @DubboService
 @Slf4j
-public class SmsProviderImpl implements SmsFacade {
+public class MallShopFacadeImpl implements SmsFacade {
     @Autowired
     private SmsService smsService;
 

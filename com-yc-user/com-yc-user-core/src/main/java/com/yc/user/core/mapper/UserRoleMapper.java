@@ -1,7 +1,7 @@
 package com.yc.user.core.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.yc.user.core.entity.UserRoleEntity;
+import com.yc.user.core.entity.UserRole;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,5 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @Date: Created in 14:56 2021/3/4
  */
 @Mapper
-public interface UserRoleMapper extends BaseMapper<UserRoleEntity> {
+public interface UserRoleMapper extends BaseMapper<UserRole> {
 }

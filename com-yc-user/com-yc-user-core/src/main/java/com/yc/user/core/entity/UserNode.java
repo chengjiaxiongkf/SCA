@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class UserNodeEntity implements Serializable {
+public class UserNode implements Serializable {
     private Long userId;
     //0-企业 1-前端 2-代理商 3-有传 4-U客后台 5-U客App
     private Integer platform;

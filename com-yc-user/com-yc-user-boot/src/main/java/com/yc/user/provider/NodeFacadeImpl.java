@@ -13,7 +13,7 @@ import java.util.List;
  * @Date: Created in 16:46 2021/2/23
  */
 @DubboService
-public class NodeProviderImpl implements NodeFacade {
+public class NodeFacadeImpl implements NodeFacade {
     @Autowired
     private NodeService nodeService;
 

@@ -3,7 +3,7 @@
 <mapper namespace="com.yc.user..core.mapper.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.yc.user.core.entity.UserEntity">
+    <resultMap id="BaseResultMap" type="com.yc.user.core.entity.User">
         <id column="id" property="id" />
         <result column="regist_platfrom" property="registPlatfrom" />
         <result column="regist_device" property="registDevice" />
