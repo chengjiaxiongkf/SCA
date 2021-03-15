@@ -1,9 +1,7 @@
 package com.yc.user.core.converter;
 
-import com.yc.user.api.dto.UserDTO;
-import com.yc.user.api.dto.UserRoleDTO;
-import com.yc.user.core.entity.UserEntity;
 import com.yc.user.core.entity.UserRoleEntity;
+import com.yc.user.facade.dto.UserRoleDTO;
 import org.mapstruct.Mapper;
 
 /**

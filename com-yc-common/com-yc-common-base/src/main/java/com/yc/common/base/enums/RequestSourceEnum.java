@@ -4,7 +4,7 @@ import lombok.Getter;
 
 /**
  * @Author: ChengJiaXiong
- * @Description: 请求来源类型
+ * @Description: 请求来源枚举定义
  * @Date: Created in 14:37 2021/2/9
  */
 @Getter

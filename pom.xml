@@ -11,10 +11,11 @@
     <modules>
         <module>com-yc-common</module>
         <module>com-yc-user</module>
-        <module>com-yc-gateway</module>
+<!--        <module>com-yc-gateway</module>-->
         <module>com-yc-auth</module>
         <module>com-yc-mall</module>
         <module>com-yc-sms</module>
+        <module>com-yc-web</module>
     </modules>
 
     <properties>
@@ -46,12 +47,6 @@
                 <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-<!--                <exclusions>-->
-<!--                    <exclusion>-->
-<!--                        <artifactId>guava</artifactId>-->
-<!--                        <groupId>com.google.guava</groupId>-->
-<!--                    </exclusion>-->
-<!--                </exclusions>-->
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -72,14 +67,14 @@
     </build>
     <!--定义环境变量-->
     <profiles>
-        <!--本地-->
+        <!--dev环境-->
         <profile>
             <id>dev</id>
             <properties>
                 <env>dev</env>
             </properties>
         </profile>
-        <!--测试环境-->
+        <!--test环境-->
         <profile>
             <id>test</id>
             <properties>

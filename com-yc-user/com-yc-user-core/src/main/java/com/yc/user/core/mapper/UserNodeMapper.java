@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @Author: ChengJiaXiong
- * @Description:
+ * @Description: 用户节点表Mapper接口
  * @Date: Created in 15:48 2021/2/23
  */
 @Mapper

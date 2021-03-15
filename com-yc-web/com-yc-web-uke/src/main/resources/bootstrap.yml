@@ -1,0 +1,32 @@
+server:
+  port: 9000
+  env: test
+  #  servlet:
+  #    context-path: /com-yc-web-uke
+spring:
+  application:
+    name: com-yc-web-uke
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.66.66.214:8848
+        namespace: 5a1c2e28-229b-4378-a7a0-e8d95fffb54a
+        group: test
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        extension-configs:
+          - data-id: ${spring.application.name}.yml
+            group: ${server.env}
+            refresh: true
+          - data-id: global-config.xml
+            group: ${server.env}
+            refresh: true
+dubbo:
+  cloud:
+    subscribed-services: com-yc-user,com-yc-auth
+  protocol:
+    name: dubbo
+    port: -1
+  consumer:
+    check: false

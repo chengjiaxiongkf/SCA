@@ -1,8 +1,8 @@
 package com.yc.user.core.converter;
 
-import com.yc.user.api.dto.UserAuthInfoDTO;
-import com.yc.user.api.dto.UserNodeDTO;
-import com.yc.user.api.dto.UserRoleDTO;
+import com.yc.user.facade.dto.UserAuthInfoDTO;
+import com.yc.user.facade.dto.UserNodeDTO;
+import com.yc.user.facade.dto.UserRoleDTO;
 import org.mapstruct.Mapper;
 
 /**

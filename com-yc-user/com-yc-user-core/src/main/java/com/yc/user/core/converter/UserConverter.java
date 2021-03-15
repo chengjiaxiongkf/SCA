@@ -1,9 +1,9 @@
 package com.yc.user.core.converter;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.yc.user.api.dto.UserDTO;
+import com.yc.common.base.dto.PageResult;
 import com.yc.user.core.entity.UserEntity;
-import com.yc.user.core.vo.UserVO;
+import com.yc.user.facade.dto.UserDTO;
 import org.mapstruct.Mapper;
 import java.util.List;
 
@@ -22,14 +22,8 @@ public interface UserConverter {
 //            @Mapping(target = "email", ignore = true)
 //    })
     UserEntity converUserEntity(UserDTO userDTO);
-    Page<UserEntity> converUserEntityPage(Page<UserDTO> page);
     List<UserEntity> converUserEntityList(List<UserDTO> userDTO);
-
     UserDTO converUserDTO(UserEntity userEntity);
-    Page<UserDTO> converUserDTOPage(Page<UserEntity> page);
+    PageResult<UserDTO> converUserDTOPage(Page<UserEntity> page);
     List<UserDTO> converUserDTOList(List<UserEntity> userDTO);
-
-    UserVO converUserVO(UserDTO userEntity);
-    Page<UserVO> converUserVOPage(Page<UserDTO> page);
-    List<UserVO> converUserVOList(List<UserDTO> userDTO);
 }

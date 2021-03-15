@@ -11,9 +11,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class Result<T> implements Serializable {
-    private String code;
-    private String msg;
+public class Result<T> extends BaseResult {
     private T data;
     private long time;
 
@@ -21,8 +19,8 @@ public class Result<T> implements Serializable {
     }
 
     public Result(String code, String msg, T data,long time) {
-        this.code = code;
-        this.msg = msg;
+        super.setCode(code);
+        super.setMsg(msg);
         this.data = data;
         this.time = time;
     }

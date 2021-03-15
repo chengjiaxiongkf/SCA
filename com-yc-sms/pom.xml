@@ -14,8 +14,9 @@
     <name>com-yc-sms</name>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>com-yc-sms-api</module>
+        <module>com-yc-sms-facade</module>
         <module>com-yc-sms-core</module>
+        <module>com-yc-sms-boot</module>
     </modules>
 
     <properties>

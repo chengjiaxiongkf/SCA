@@ -16,8 +16,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>com-yc-user-api</module>
+        <module>com-yc-user-facade</module>
         <module>com-yc-user-core</module>
+        <module>com-yc-user-boot</module>
     </modules>
 
     <properties>

@@ -1,5 +1,10 @@
 package com.yc.common.base.enums;
 
+/**
+ * @Author: ChengJiaXiong
+ * @Description:    客户端枚举定义
+ * @Date: Created in 19:41 2021/3/3
+ */
 public enum PlatformEnum {
 
     TYPE_0(0, "企业"),

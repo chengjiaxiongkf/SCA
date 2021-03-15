@@ -3,7 +3,6 @@ package com.yc.user.core.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import java.io.Serializable;
@@ -54,7 +53,6 @@ public class UserEntity implements Serializable {
     //0没邀约/1企业管理员邀约/2加入/3拒绝
     private Integer inviteStatus;
 
-    @JsonIgnore
     //密码哈希
     private String passwordHash;
 

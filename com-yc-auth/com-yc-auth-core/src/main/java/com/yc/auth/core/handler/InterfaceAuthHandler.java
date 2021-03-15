@@ -4,17 +4,16 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import com.yc.auth.api.dto.AuthDTO;
 import com.yc.auth.core.util.AuthUtils;
-import com.yc.common.base.exception.AuthException;
-import com.yc.common.base.enums.AuthExceptionCodeEnum;
+import com.yc.auth.api.exception.AuthException;
 import com.yc.auth.core.config.AuthRefreshProperties;
-import com.yc.common.config.redis.util.RedisUtil;
+import com.yc.common.redis.util.RedisUtils;
 import com.yc.common.util.SecurityConstant;
 import com.yc.common.util.TokenUtil;
-import com.yc.mall.api.dto.MallShopDTO;
-import com.yc.mall.api.service.MallShopService;
-import com.yc.user.api.dto.UserAuthInfoDTO;
-import com.yc.user.api.dto.UserNodeDTO;
-import com.yc.user.api.service.UserAuthService;
+import com.yc.mall.facade.dto.MallShopDTO;
+import com.yc.mall.facade.MallShopFacade;
+import com.yc.user.facade.UserAuthFacade;
+import com.yc.user.facade.dto.UserAuthInfoDTO;
+import com.yc.user.facade.dto.UserNodeDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
@@ -33,16 +32,16 @@ import java.util.stream.Collectors;
 @Slf4j
 public class InterfaceAuthHandler extends AbstractAuthHandler {
     @Resource
-    private RedisUtil redisUtil;
+    private RedisUtils redisUtil;
 
     @Autowired
     private AuthRefreshProperties authenticationRefreshProperties;
 
     @DubboReference
-    private MallShopService mallShopService;
+    private MallShopFacade mallShopService;
 
     @DubboReference
-    private UserAuthService userAuthService;
+    private UserAuthFacade userAuthFacade;
 
     @Override
     public AuthEnum type() {
@@ -52,16 +51,16 @@ public class InterfaceAuthHandler extends AbstractAuthHandler {
     @Override
     protected boolean checkParams(AuthDTO authenticationDTO) throws AuthException {
         if (authenticationDTO.getMenuId()==null || authenticationDTO.getMenuId()==0) {
-            throw new AuthException(AuthExceptionCodeEnum.MENU_ID_NULL);
+            throw new AuthException(AuthException.AuthExceptionCodeEnum.MENU_ID_NULL);
         }
         if (StringUtils.isEmpty(authenticationDTO.getMethod())) {
-            throw new AuthException(AuthExceptionCodeEnum.METHOD_NULL);
+            throw new AuthException(AuthException.AuthExceptionCodeEnum.METHOD_NULL);
         }
         if (StringUtils.isEmpty(authenticationDTO.getToken())) {
-            throw new AuthException(AuthExceptionCodeEnum.TOKEN_NULL);
+            throw new AuthException(AuthException.AuthExceptionCodeEnum.TOKEN_NULL);
         }
         if (StringUtils.isEmpty(authenticationDTO.getUrl())) {
-            throw new AuthException(AuthExceptionCodeEnum.URL_NULL);
+            throw new AuthException(AuthException.AuthExceptionCodeEnum.URL_NULL);
         }
         return true;
     }
@@ -84,7 +83,7 @@ public class InterfaceAuthHandler extends AbstractAuthHandler {
         }
         //是否拥有接口权限
         if (!this.checkUrl(userAuthInfoDTO, authDTO)) {
-            throw new AuthException(AuthExceptionCodeEnum.URL_AUTH_FAIL);
+            throw new AuthException(AuthException.AuthExceptionCodeEnum.URL_AUTH_FAIL);
         }
     }
 
@@ -103,7 +102,7 @@ public class InterfaceAuthHandler extends AbstractAuthHandler {
      */
     private UserAuthInfoDTO getUserAuthInfo(UserAuthInfoDTO userAuthInfoDTO) {
         //TODO caffer+redis缓存双重缓存
-        return userAuthService.getUserAuthority(userAuthInfoDTO);
+        return userAuthFacade.getUserAuthority(userAuthInfoDTO);
     }
 
     /**
@@ -118,12 +117,12 @@ public class InterfaceAuthHandler extends AbstractAuthHandler {
         Integer organizeId;
         Integer platform;
         if (!redisUtil.hasKey(token)) {
-            throw new AuthException(AuthExceptionCodeEnum.TOKEN_NO_EXIST);
+            throw new AuthException(AuthException.AuthExceptionCodeEnum.TOKEN_NO_EXIST);
         }
-        redisUtil.expire(token, RedisUtil.HOURS); //更新redis中token的过期时间
+        redisUtil.set(token,"1",RedisUtils.HOURS); //更新redis中token的过期时间
         String tokenValue = redisUtil.get(token).toString();
         if(StringUtils.isEmpty(tokenValue)){
-            throw new AuthException(AuthExceptionCodeEnum.TOKEN_VALID);
+            throw new AuthException(AuthException.AuthExceptionCodeEnum.TOKEN_VALID);
         }
         if (!"1".equals(tokenValue)){//已经被解析过了
             return com.alibaba.fastjson.JSONObject.parseObject(tokenValue,UserAuthInfoDTO.class);
@@ -131,11 +130,11 @@ public class InterfaceAuthHandler extends AbstractAuthHandler {
         JSONObject jsonObject;
         jsonObject = TokenUtil.verifyToken(token, authenticationRefreshProperties.getTokenAuthConfigSecret());
         if (jsonObject == null) {
-            throw new AuthException(AuthExceptionCodeEnum.TOKEN_VALID);
+            throw new AuthException(AuthException.AuthExceptionCodeEnum.TOKEN_VALID);
         }
         userId = jsonObject.getLong("user_id");
         if (userId == null || userId == 0) {  //错误的token
-            throw new AuthException(AuthExceptionCodeEnum.TOKEN_VALID);
+            throw new AuthException(AuthException.AuthExceptionCodeEnum.TOKEN_VALID);
         }
         shopNo = jsonObject.getStr("shop_no");
         organizeId = jsonObject.getInt("organize_id");
@@ -181,6 +180,6 @@ public class InterfaceAuthHandler extends AbstractAuthHandler {
     public void setRedis(String key,UserAuthInfoDTO authenticationDTO){
         String userAuthInfoDTOStr = com.alibaba.fastjson.JSONObject.toJSONString(authenticationDTO);
         log.info("userAuthInfoDTOStr:"+userAuthInfoDTOStr);
-        redisUtil.set(key, userAuthInfoDTOStr, RedisUtil.HOURS);
+        redisUtil.set(key, userAuthInfoDTOStr, RedisUtils.HOURS);
     }
 }

@@ -7,12 +7,9 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 /**
- * <p>
- * 权限节点表 Mapper 接口
- * </p>
- *
- * @author SanGang
- * @since 2020-11-01
+ * @Author: ChengJiaXiong
+ * @Description: 权限节点表Mapper接口
+ * @Date: Created in 14:55 2021/3/4
  */
 @Mapper
 public interface NodeMapper extends BaseMapper<NodeEntity> {

@@ -24,10 +24,10 @@ public class SignUtil {
      * @param params 所有的请求参数都会在这里进行排序加密
      * @return 验证签名结果
      */
-    public static boolean verifySign(Map<String, String> params, String key) {
-        String sign = params.get("sign");
+    public static boolean verifySign(SortedMap<String, Object> params, String key) {
+        Object sign = params.get("sign");
         log.info("Url Sign : {}", sign);
-        if (StringUtils.isEmpty(sign)) {
+        if (sign==null || StringUtils.isEmpty(sign.toString())) {
             return false;
         }
         //把参数加密
@@ -40,10 +40,10 @@ public class SignUtil {
      * @param params 所有的请求参数都会在这里进行排序加密
      * @return 得到签名
      */
-    public static String getParamsSign(Map<String, String> params,String key) {
+    public static String getParamsSign(SortedMap<String, Object> params,String key) {
         //要先去掉 Url 里的 Sign
         params.remove("sign");
-        String timestamp = params.get("timestamp");
+        String timestamp = params.get("timestamp").toString();
         String paramsJsonStr = JSONObject.toJSONString(params);
         String skey = timestamp + key;
         String md5Key = "key=" + SecureUtil.md5(skey);

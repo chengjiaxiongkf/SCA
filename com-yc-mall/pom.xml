@@ -13,8 +13,9 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>com-yc-mall-api</module>
+        <module>com-yc-mall-facade</module>
         <module>com-yc-mall-core</module>
+        <module>com-yc-mall-boot</module>
     </modules>
 
 
