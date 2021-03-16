@@ -1,11 +1,8 @@
-package com.yc.auth.api.dto;
+package com.yc.auth.facade.dto;
 
 import com.yc.common.base.dto.BaseResult;
-import com.yc.common.base.dto.Result;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.Serializable;
 
 /**
  * @Author: ChengJiaXiong

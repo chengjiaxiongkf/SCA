@@ -1,5 +1,4 @@
-package com.yc.auth.api.exception;
-
+package com.yc.auth.facade.exception;
 
 import lombok.Getter;
 

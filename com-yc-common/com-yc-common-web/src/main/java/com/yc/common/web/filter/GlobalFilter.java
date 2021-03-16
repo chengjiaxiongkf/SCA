@@ -1,9 +1,9 @@
 package com.yc.common.web.filter;
 
 import com.alibaba.fastjson.JSONObject;
-import com.yc.auth.api.dto.AuthDTO;
-import com.yc.auth.api.dto.AuthResultDTO;
-import com.yc.auth.api.facade.AuthFacade;
+import com.yc.auth.facade.dto.AuthDTO;
+import com.yc.auth.facade.dto.AuthResultDTO;
+import com.yc.auth.facade.AuthFacade;
 import com.yc.common.base.enums.ResultCodeEnum;
 import com.yc.common.base.util.ResultUtil;
 import com.yc.common.util.HttpUtils;
@@ -83,9 +83,9 @@ public class GlobalFilter implements Filter {
         authenticationDTO.setToken(token);
         authenticationDTO.setMenuId(Long.parseLong(menuId));
         authenticationDTO.setMethod(method);
-        AuthResultDTO authentication = authFacade.authentication(authenticationDTO);
-        if(!"200".equals(authentication.getCode())){
-            log.info("authentication fail:"+ JSONObject.toJSONString(authentication));
+        AuthDTO authResultDTO = authFacade.authentication(authenticationDTO);
+        if(!"200".equals(authResultDTO.getCode())){
+            log.info("authentication fail:"+ JSONObject.toJSONString(authResultDTO));
             HttpUtils.out(response, ResultUtil.failed(ResultCodeEnum.FORBIDDEN));
             return;
         }

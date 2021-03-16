@@ -1,9 +1,9 @@
 package com.yc.auth.provider;
 
-import com.yc.auth.api.dto.AuthDTO;
-import com.yc.auth.api.dto.AuthResultDTO;
-import com.yc.auth.api.exception.AuthException;
-import com.yc.auth.api.facade.AuthFacade;
+import com.yc.auth.facade.dto.AuthDTO;
+import com.yc.auth.facade.dto.AuthResultDTO;
+import com.yc.auth.facade.exception.AuthException;
+import com.yc.auth.facade.AuthFacade;
 import com.yc.auth.core.service.InterfaceAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
@@ -23,7 +23,7 @@ public class AuthFacadeImpl implements AuthFacade {
     private InterfaceAuthService interfaceAuthService;
 
     @Override
-    public AuthResultDTO authentication(AuthDTO authDTO) throws AuthException {
+    public AuthDTO authentication(AuthDTO authDTO) throws AuthException {
         return interfaceAuthService.authentication(authDTO);
     }
 }

@@ -2,9 +2,9 @@ package com.yc.auth.core.handler;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
-import com.yc.auth.api.dto.AuthDTO;
+import com.yc.auth.facade.dto.AuthDTO;
 import com.yc.auth.core.util.AuthUtils;
-import com.yc.auth.api.exception.AuthException;
+import com.yc.auth.facade.exception.AuthException;
 import com.yc.auth.core.config.AuthRefreshProperties;
 import com.yc.common.redis.util.RedisUtils;
 import com.yc.common.util.SecurityConstant;

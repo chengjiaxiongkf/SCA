@@ -4,13 +4,14 @@ import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
-import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
+import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import lombok.*;
-import org.apache.commons.lang3.StringUtils;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author: ChengJiaXiong
@@ -23,160 +24,166 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AutoGeneratorFactory {
-    private String moduleName;                          //模块名
-    private String tableName;                           //表名
-    private String outputDir;                           //输出目录，默认前缀为执行文件的当前目录
-    private String packageName;                         //包名
-    private AutoGenerator autoGenerator;                //生成配置
-    private GlobalConfig globalConfig;                  //全局配置
-    private DataSourceConfig dataSourceConfig;          //数据源配置
-    private PackageConfig packageConfig;                //包配置
-    private InjectionConfig injectionConfig;            //自定义配置
-    private List<FileOutConfig> list;                   //文件输出配置
-    private StrategyConfig strategyConfig;              //策略配置
-    private TemplateConfig templateConfig;              //默认配置
-    private AbstractTemplateEngine templateEngine;      //模板引擎
-    private String dtoSuffix = "DTO";                   //dto后缀
-    private String entitySuffix = "";                   //entity后缀
-    private String mapperSuffix = "Mapper";             //mapper后缀
-    private String facadeSuffix = "Facade";             //facade后缀
-    private String providerSuffix = "FacadeImpl"; //providerImpl后缀
-    private String serviceSuffix = "Service";           //service后缀
-
-    /**
-     * 默认全局配置
-     */
-    public void defaultGlobalConfig(){
-        this.globalConfig = new GlobalConfig();
-        this.globalConfig.setOutputDir(System.getProperty("user.dir")+outputDir);
-        this.globalConfig.setAuthor("chengjiaxiong");
-        this.globalConfig.setOpen(false);
-        this.globalConfig.setEntityName("%sEntity");
-        this.globalConfig.setDateType(DateType.ONLY_DATE);
-        this.globalConfig.setFileOverride(false);//覆盖已有文件
-    }
-
+    private String packagePath;
+    private String moduleName;
+    private String[] tableName;
     /**
      * 默认数据源配置
      */
-    public void defaultDataSourceConfig() {
-        this.dataSourceConfig = new DataSourceConfig();
-        this.dataSourceConfig.setUrl("jdbc:mysql://youchuan-test-rds.c1eouiepocc7.rds.cn-north-1.amazonaws.com.cn:3306/yc-dev?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false");
-        this.dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");
-        this.dataSourceConfig.setUsername("project");
-        this.dataSourceConfig.setPassword("lKURYZ7HQq8k4rCC");
+    private DataSourceConfig defaultDataSourceConfig() {
+        DataSourceConfig dataSourceConfig = new DataSourceConfig();
+        dataSourceConfig.setUrl("jdbc:mysql://youchuan-test-rds.c1eouiepocc7.rds.cn-north-1.amazonaws.com.cn:3306/yc-dev?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false");
+        dataSourceConfig.setDriverName("com.mysql.jdbc.Driver");
+        dataSourceConfig.setUsername("project");
+        dataSourceConfig.setPassword("lKURYZ7HQq8k4rCC");
+        return dataSourceConfig;
     }
 
-    /**
-     * 默认包配置
-     */
-    public void defaultPackageConfig(){
-        this.packageConfig = new PackageConfig();
-        this.packageConfig.setParent(packageName);
+    //生成
+    public void generator(){
+        this.generatorFacade();
+        this.generatorCore();
     }
 
-    /**
-     * 默认自定义配置
-     */
-    public void defaultInjectionConfig(){
-        this.injectionConfig = new InjectionConfig() {
+    private void generatorFacade(){
+        String baseName = "facade";
+        String packagePath = this.packagePath+"."+this.moduleName+"."+baseName;
+        String moduleName = this.moduleName;
+        String parentModule = "\\com-yc-"+moduleName;
+        String module = parentModule+parentModule+"-facade";
+        String captureName = AutoGeneratorFactory.captureName(moduleName);
+        AutoGenerator mpg = new AutoGenerator();
+        // 全局配置
+        GlobalConfig gc = new GlobalConfig();
+        //当前路径
+        String projectPath = System.getProperty("user.dir");
+        //输出路径
+        gc.setOutputDir(projectPath + module + "/src/main/java");
+        gc.setAuthor("chengjiaxiong");    //设置作者
+        //生成代码后，是否打开文件夹
+        gc.setOpen(false);
+        gc.setFileOverride(false);  //是否覆盖原来代码，个人建议设置为false,别覆盖，危险系数太高
+        gc.setServiceName("%sFacade");
+        gc.setEntityName("%sDTO");
+        gc.setServiceImplName(captureName+"Exception");
+        gc.setDateType(DateType.ONLY_DATE);   //日期格式
+        mpg.setGlobalConfig(gc);
+        // 数据源配置
+        mpg.setDataSource(this.defaultDataSourceConfig());
+        // 包配置
+        PackageConfig pc = new PackageConfig();
+        pc.setParent(this.packagePath+"."+this.moduleName);   //自定义包的路径
+        pc.setServiceImpl(baseName+".exception");
+        mpg.setPackageInfo(pc);
+        // 策略配置
+        StrategyConfig strategy = new StrategyConfig();
+        strategy.setInclude(tableName);    //设置映射的表名，可以设置多个表
+        //模板引擎
+        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+        //模板配置
+        TemplateConfig templateConfig = new TemplateConfig();
+        templateConfig.setEntity(null);
+        templateConfig.setService(null);
+        templateConfig.setServiceImpl("/templates/exception.java");
+        templateConfig.setController(null);
+        templateConfig.setMapper(null);
+        templateConfig.setXml(null);
+        templateConfig.setEntityKt(null);
+        mpg.setTemplate(templateConfig);
+        //自定义配置
+        InjectionConfig cfg = new InjectionConfig() {
             @Override
             public void initMap() {
-                Map<String, Object> map = new HashMap<>();
-                map.put("module", moduleName);
-                map.put("dto", packageName+".dto."+moduleName);
-                map.put("dtoSuffix", dtoSuffix);
-                map.put("entity", packageName+".entity."+moduleName);
-                map.put("entitySuffix", entitySuffix);
-                map.put("mapper", packageName+".mapper."+moduleName);
-                map.put("mapperSuffix", mapperSuffix);
-                map.put("facade", packageName+".facade."+moduleName);
-                map.put("facadeSuffix", facadeSuffix);
-                map.put("provider", packageName+".provider."+moduleName);
-                map.put("providerSuffix", providerSuffix);
-                map.put("service", packageName+".service."+moduleName);
-                map.put("serviceSuffix", serviceSuffix);
-                this.setMap(map);
+                this.setMap(new HashMap<String,Object>(){{
+                    put("packageException",packagePath+".exception");
+                    put("module", captureName);
+                }});
             }
         };
+        mpg.setCfg(cfg);
+        //包的命名规则，使用驼峰规则
+        strategy.setNaming(NamingStrategy.nochange);
+        //列的名称，使用驼峰规则
+        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+        //是否使用lombok
+        strategy.setEntityLombokModel(true);
+        //驼峰命名
+        strategy.setRestControllerStyle(true);
+        mpg.setStrategy(strategy);
+        mpg.execute();
     }
 
-    /**
-     * 默认模板配置
-     */
-    public void defaultTemplateConfig(){
-        this.templateConfig = new TemplateConfig();
-        this.templateConfig.setController(null);
-        this.templateConfig.setService(null);
-        this.templateConfig.setServiceImpl(null);
-        this.templateConfig.setEntity(null);
-        this.templateConfig.setMapper(null);
-        this.templateConfig.setXml(null);
+    private void generatorCore(){
+        String baseName = "core";
+        String packagePath = this.packagePath+"."+this.moduleName;
+        String moduleName = this.moduleName;
+        String parentModule = "\\com-yc-"+moduleName;
+        String module = parentModule+parentModule+"-"+baseName;
+        String captureName = AutoGeneratorFactory.captureName(moduleName);
+        AutoGenerator mpg = new AutoGenerator();
+        // 全局配置
+        GlobalConfig gc = new GlobalConfig();
+        //当前路径
+        String projectPath = System.getProperty("user.dir");
+        //输出路径
+        gc.setOutputDir(projectPath + module + "/src/main/java");
+        gc.setAuthor("chengjiaxiong");    //设置作者
+        //生成代码后，是否打开文件夹
+        gc.setOpen(false);
+        gc.setFileOverride(false);  //是否覆盖原来代码，个人建议设置为false,别覆盖，危险系数太高
+        gc.setServiceName("%sDao");
+        gc.setServiceImplName("%sDaoImpl");
+        gc.setEntityName("%s");
+        gc.setMapperName("%sMapper");
+        gc.setDateType(DateType.ONLY_DATE);   //日期格式
+        mpg.setGlobalConfig(gc);
+        // 数据源配置
+        mpg.setDataSource(this.defaultDataSourceConfig());
+        // 包配置
+        PackageConfig pc = new PackageConfig();
+        pc.setParent(packagePath);   //自定义包的路径
+        pc.setModuleName(baseName);
+        pc.setService("dao");
+        pc.setServiceImpl("dao.impl");
+        mpg.setPackageInfo(pc);
+        // 策略配置
+        StrategyConfig strategy = new StrategyConfig();
+        strategy.setInclude(tableName);    //设置映射的表名，可以设置多个表
+        //模板引擎
+        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+        //模板配置
+        TemplateConfig templateConfig = new TemplateConfig();
+        templateConfig.setController(null);
+        templateConfig.setEntityKt(null);
+        templateConfig.setXml(null);
+        mpg.setTemplate(templateConfig);
+
+        //包的命名规则，使用驼峰规则
+        strategy.setNaming(NamingStrategy.nochange);
+        //列的名称，使用驼峰规则
+        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+        //是否使用lombok
+        strategy.setEntityLombokModel(true);
+        //驼峰命名
+        strategy.setRestControllerStyle(true);
+        mpg.setStrategy(strategy);
+        mpg.execute();
     }
 
-    /**
-     * 默认模板引擎
-     */
-    public void defaultTemplateEngine() {
-        this.templateEngine = new FreemarkerTemplateEngine();
+    public static String captureName(String str){
+        // 进行字母的ascii编码前移，效率要高于截取字符串进行转换的操作
+        char[] cs=str.toCharArray();
+        cs[0]-=32;
+        return String.valueOf(cs);
     }
 
-    /**
-     * 对外提供执行生成facade包方法
-     */
-    public void executeFacade(){
-        this.initData();
-        //facade封装参数
-        this.autoGenerator.execute();
-    }
-
-    /**
-     * 对外提供执行生成core包方法
-     */
-    public void executeCore(){
-        this.initData();
-        //core封装参数
-        this.autoGenerator.execute();
-    }
-
-    /**
-     * 准备数据
-     */
-    private void initData(){
-        if(StringUtils.isEmpty(this.tableName)){
-            throw new RuntimeException("tableName is null.");
-        }
-        if(StringUtils.isEmpty(this.outputDir)){
-            throw new RuntimeException("outputDir is null.");
-        }
-        if(StringUtils.isEmpty(this.packageName)){
-            throw new RuntimeException("packageName is null.");
-        }
-        if(this.globalConfig==null){
-            this.defaultGlobalConfig();
-        }
-        if (this.dataSourceConfig == null) {
-            this.defaultDataSourceConfig();
-        }
-        if(this.packageConfig==null){
-            this.defaultPackageConfig();
-        }
-        if (this.templateEngine == null) {
-            this.defaultTemplateEngine();
-        }
-        this.autoGenerator.setGlobalConfig(this.globalConfig)
-                .setDataSource(this.dataSourceConfig)
-                .setPackageInfo(this.packageConfig)
-                .setCfg(this.injectionConfig)
-                .setStrategy(this.strategyConfig)
-                .setTemplateEngine(this.templateEngine);
-    }
-
-    /**
-     * 执行方法
-     */
-    public void execute() {
-        this.initData();
-        this.autoGenerator.execute();
+    public static void main(String[] args) {
+        // 代码生成器
+        String[] tableNames = {
+                "organize"
+        };
+        AutoGeneratorFactory.builder().moduleName("organize")
+                .tableName(tableNames)
+                .packagePath("com.yc").build().generator();
     }
 }

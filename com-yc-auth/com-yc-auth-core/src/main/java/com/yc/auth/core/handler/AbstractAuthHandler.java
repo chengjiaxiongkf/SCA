@@ -1,8 +1,8 @@
 package com.yc.auth.core.handler;
 
 import com.alibaba.fastjson.JSONObject;
-import com.yc.auth.api.dto.AuthDTO;
-import com.yc.auth.api.exception.AuthException;
+import com.yc.auth.facade.dto.AuthDTO;
+import com.yc.auth.facade.exception.AuthException;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 

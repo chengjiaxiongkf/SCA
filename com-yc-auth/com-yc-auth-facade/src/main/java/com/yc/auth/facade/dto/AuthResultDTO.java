@@ -1,4 +1,4 @@
-package com.yc.auth.api.dto;
+package com.yc.auth.facade.dto;
 
 import com.yc.common.base.dto.BaseResult;
 

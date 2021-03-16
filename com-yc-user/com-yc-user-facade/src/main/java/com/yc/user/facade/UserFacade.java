@@ -2,8 +2,8 @@ package com.yc.user.facade;
 
 import com.yc.common.base.dto.PageResult;
 import com.yc.user.facade.dto.UserDTO;
-import com.yc.user.facade.exception.UserException;
 import java.util.List;
+import com.yc.user.facade.exception.UserException;
 
 /**
  * @Author: ChengJiaXiong
