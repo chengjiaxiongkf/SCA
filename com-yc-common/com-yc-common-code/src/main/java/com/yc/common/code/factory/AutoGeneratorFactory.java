@@ -8,10 +8,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import lombok.*;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * @Author: ChengJiaXiong
@@ -27,6 +24,7 @@ public class AutoGeneratorFactory {
     private String packagePath;
     private String moduleName;
     private String[] tableName;
+
     /**
      * 默认数据源配置
      */
@@ -40,17 +38,17 @@ public class AutoGeneratorFactory {
     }
 
     //生成
-    public void generator(){
+    public void generator() {
         this.generatorFacade();
         this.generatorCore();
     }
 
-    private void generatorFacade(){
+    private void generatorFacade() {
         String baseName = "facade";
-        String packagePath = this.packagePath+"."+this.moduleName+"."+baseName;
+        String packagePath = this.packagePath + "." + this.moduleName + "." + baseName;
         String moduleName = this.moduleName;
-        String parentModule = "\\com-yc-"+moduleName;
-        String module = parentModule+parentModule+"-facade";
+        String parentModule = "\\com-yc-" + moduleName;
+        String module = parentModule + parentModule + "-facade";
         String captureName = AutoGeneratorFactory.captureName(moduleName);
         AutoGenerator mpg = new AutoGenerator();
         // 全局配置
@@ -65,15 +63,16 @@ public class AutoGeneratorFactory {
         gc.setFileOverride(false);  //是否覆盖原来代码，个人建议设置为false,别覆盖，危险系数太高
         gc.setServiceName("%sFacade");
         gc.setEntityName("%sDTO");
-        gc.setServiceImplName(captureName+"Exception");
+        gc.setServiceImplName(captureName + "Exception");
         gc.setDateType(DateType.ONLY_DATE);   //日期格式
         mpg.setGlobalConfig(gc);
         // 数据源配置
         mpg.setDataSource(this.defaultDataSourceConfig());
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent(this.packagePath+"."+this.moduleName);   //自定义包的路径
-        pc.setServiceImpl(baseName+".exception");
+        pc.setParent(this.packagePath + "." + this.moduleName);   //自定义包的路径
+        pc.setServiceImpl(baseName + ".exception");
+        pc.setEntity(baseName + ".dto");
         mpg.setPackageInfo(pc);
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
@@ -82,9 +81,9 @@ public class AutoGeneratorFactory {
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         //模板配置
         TemplateConfig templateConfig = new TemplateConfig();
-        templateConfig.setEntity(null);
-        templateConfig.setService(null);
+        templateConfig.setEntity("/templates/dto.java");
         templateConfig.setServiceImpl("/templates/exception.java");
+        templateConfig.setService(null);
         templateConfig.setController(null);
         templateConfig.setMapper(null);
         templateConfig.setXml(null);
@@ -94,8 +93,9 @@ public class AutoGeneratorFactory {
         InjectionConfig cfg = new InjectionConfig() {
             @Override
             public void initMap() {
-                this.setMap(new HashMap<String,Object>(){{
-                    put("packageException",packagePath+".exception");
+                this.setMap(new HashMap<String, Object>() {{
+                    put("packageDto", packagePath + ".dto");
+                    put("packageException", packagePath + ".exception");
                     put("module", captureName);
                 }});
             }
@@ -113,12 +113,12 @@ public class AutoGeneratorFactory {
         mpg.execute();
     }
 
-    private void generatorCore(){
+    private void generatorCore() {
         String baseName = "core";
-        String packagePath = this.packagePath+"."+this.moduleName;
+        String packagePath = this.packagePath + "." + this.moduleName;
         String moduleName = this.moduleName;
-        String parentModule = "\\com-yc-"+moduleName;
-        String module = parentModule+parentModule+"-"+baseName;
+        String parentModule = "\\com-yc-" + moduleName;
+        String module = parentModule + parentModule + "-" + baseName;
         String captureName = AutoGeneratorFactory.captureName(moduleName);
         AutoGenerator mpg = new AutoGenerator();
         // 全局配置
@@ -131,8 +131,7 @@ public class AutoGeneratorFactory {
         //生成代码后，是否打开文件夹
         gc.setOpen(false);
         gc.setFileOverride(false);  //是否覆盖原来代码，个人建议设置为false,别覆盖，危险系数太高
-        gc.setServiceName("%sDao");
-        gc.setServiceImplName("%sDaoImpl");
+        gc.setServiceImplName("%sService");
         gc.setEntityName("%s");
         gc.setMapperName("%sMapper");
         gc.setDateType(DateType.ONLY_DATE);   //日期格式
@@ -143,8 +142,7 @@ public class AutoGeneratorFactory {
         PackageConfig pc = new PackageConfig();
         pc.setParent(packagePath);   //自定义包的路径
         pc.setModuleName(baseName);
-        pc.setService("dao");
-        pc.setServiceImpl("dao.impl");
+        pc.setServiceImpl("service");
         mpg.setPackageInfo(pc);
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
@@ -156,6 +154,8 @@ public class AutoGeneratorFactory {
         templateConfig.setController(null);
         templateConfig.setEntityKt(null);
         templateConfig.setXml(null);
+        templateConfig.setServiceImpl("/templates/serviceImpl.java");
+        templateConfig.setService(null);
         mpg.setTemplate(templateConfig);
 
         //包的命名规则，使用驼峰规则
@@ -170,10 +170,10 @@ public class AutoGeneratorFactory {
         mpg.execute();
     }
 
-    public static String captureName(String str){
+    public static String captureName(String str) {
         // 进行字母的ascii编码前移，效率要高于截取字符串进行转换的操作
-        char[] cs=str.toCharArray();
-        cs[0]-=32;
+        char[] cs = str.toCharArray();
+        cs[0] -= 32;
         return String.valueOf(cs);
     }
 
