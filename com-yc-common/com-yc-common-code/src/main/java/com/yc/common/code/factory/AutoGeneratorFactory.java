@@ -30,10 +30,6 @@ public class AutoGeneratorFactory {
      */
     private DataSourceConfig defaultDataSourceConfig() {
         DataSourceConfig dataSourceConfig = new DataSourceConfig();
-        dataSourceConfig.setUrl("jdbc:mysql://youchuan-test-rds.c1eouiepocc7.rds.cn-north-1.amazonaws.com.cn:3306/yc-dev?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false");
-        dataSourceConfig.setDriverName("com.mysql.jdbc.Driver");
-        dataSourceConfig.setUsername("project");
-        dataSourceConfig.setPassword("lKURYZ7HQq8k4rCC");
         return dataSourceConfig;
     }
 
